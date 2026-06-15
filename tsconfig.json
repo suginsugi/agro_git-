@@ -38,6 +38,10 @@
     "**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "mobile",
+    "mobile-e2e",
+    "e2e-tests",
+    "backend"
   ]
 }
