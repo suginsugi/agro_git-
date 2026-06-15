@@ -40,9 +40,14 @@
   ],
   "exclude": [
     "node_modules",
+    "**/node_modules",
     "mobile",
+    "mobile/**/*",
     "mobile-e2e",
+    "mobile-e2e/**/*",
     "e2e-tests",
-    "backend"
+    "e2e-tests/**/*",
+    "backend",
+    "backend/**/*"
   ]
 }
