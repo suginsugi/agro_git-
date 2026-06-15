@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: agrovision-api
+    env: python
+    region: singapore
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.12
+      - key: DATABASE_URL
+        value: sqlite:///./agrovision.db # Using SQLite by default, swap for PostgreSQL on Render if preferred

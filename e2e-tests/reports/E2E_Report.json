@@ -1,0 +1,391 @@
+{
+  "stats": {
+    "suites": 3,
+    "tests": 8,
+    "passes": 4,
+    "pending": 0,
+    "failures": 4,
+    "start": "2026-06-13T04:14:24.283Z",
+    "end": "2026-06-13T04:15:26.138Z",
+    "duration": 61855,
+    "testsRegistered": 8,
+    "passPercent": 50,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "fc69d7ba-5ff1-4477-a3d4-2bf20a3a420f",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [
+        {
+          "title": "\"before all\" hook in \"{root}\"",
+          "fullTitle": "\"before all\" hook in \"{root}\"",
+          "timedOut": false,
+          "duration": 1499,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "this.timeout(60000);\nexecutionStartTime = new Date();\nlogger.info('====================================================');\nlogger.info('Starting E2E Test Execution');\nlogger.info(`Target Environment: ${config.baseUrl}`);\nlogger.info(`Browser: ${config.browser} (Headless: ${config.headless})`);\nlogger.info('====================================================');\n\nawait driverWrapper.initDriver();",
+          "err": {},
+          "uuid": "b65f38b5-27df-4b9f-bece-912c2b733e4d",
+          "parentUUID": "fc69d7ba-5ff1-4477-a3d4-2bf20a3a420f",
+          "isHook": true,
+          "skipped": false
+        },
+        {
+          "title": "\"before each\" hook in \"{root}\"",
+          "fullTitle": "\"before each\" hook in \"{root}\"",
+          "timedOut": false,
+          "duration": 0,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "this.startTime = Date.now();\ntotalTests++;",
+          "err": {},
+          "uuid": "fcc79a1e-23db-43a8-99cd-8c69da99c17b",
+          "parentUUID": "fc69d7ba-5ff1-4477-a3d4-2bf20a3a420f",
+          "isHook": true,
+          "skipped": false
+        }
+      ],
+      "afterHooks": [
+        {
+          "title": "\"after all\" hook in \"{root}\"",
+          "fullTitle": "\"after all\" hook in \"{root}\"",
+          "timedOut": false,
+          "duration": 178,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "this.timeout(60000);\nawait driverWrapper.quitDriver();\n\nconst totalDuration = Date.now() - executionStartTime.getTime();\nconst passPercent = ((passedTests / totalTests) * 100).toFixed(2);\n\nexcelReporter.addSummary({\n  date: new Date().toISOString().split('T')[0],\n  env: config.baseUrl,\n  total: totalTests,\n  passed: passedTests,\n  failed: failedTests,\n  skipped: totalTests - passedTests - failedTests,\n  passPercent: `${passPercent}%`,\n  duration: `${(totalDuration / 1000).toFixed(2)}s`\n});\nconst reportPath = path.join(__dirname, '..', config.reports.excelPath);\nawait excelReporter.saveReport(reportPath);\nlogger.info(`Execution finished. Excel Report saved to ${reportPath}`);\nlogger.info('====================================================');",
+          "err": {},
+          "uuid": "c91e9315-3d04-4cd0-ac64-97dfdbf3d09f",
+          "parentUUID": "fc69d7ba-5ff1-4477-a3d4-2bf20a3a420f",
+          "isHook": true,
+          "skipped": false
+        },
+        {
+          "title": "\"after each\" hook in \"{root}\"",
+          "fullTitle": "\"after each\" hook in \"{root}\"",
+          "timedOut": false,
+          "duration": 1,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "const duration = Date.now() - this.startTime;\nconst status = this.currentTest.state;\nconst testName = this.currentTest.title;\n\nif (status === 'passed') {\n  passedTests++;\n  logger.info(`[PASS] ${testName}`);\n} else if (status === 'failed') {\n  failedTests++;\n  logger.error(`[FAIL] ${testName} - ${this.currentTest.err.message}`);\n  \n  // Take Screenshot\n  let screenshotPath = '';\n  try {\n    screenshotPath = await driverWrapper.takeScreenshot(testName);\n  } catch (e) {\n    logger.error('Failed to take screenshot', e);\n  }\n  excelReporter.addFailedTest({\n    name: testName,\n    reason: this.currentTest.err.message,\n    screenshot: screenshotPath,\n    browser: config.browser,\n    url: await driverWrapper.getCurrentUrl().catch(() => 'unknown')\n  });\n}\n// Add to Test Cases sheet\nexcelReporter.addTestCase({\n  id: `TC-${totalTests.toString().padStart(3, '0')}`,\n  module: this.currentTest.parent.title,\n  scenario: testName,\n  browser: config.browser,\n  status: status ? status.toUpperCase() : 'SKIPPED',\n  startTime: new Date(this.startTime).toISOString(),\n  endTime: new Date().toISOString(),\n  duration: duration\n});\n\n// Execution Log\nexcelReporter.addExecutionLog({\n  timestamp: new Date().toISOString(),\n  testName: testName,\n  step: 'Execution Completed',\n  result: status ? status.toUpperCase() : 'SKIPPED',\n  remarks: status === 'failed' ? this.currentTest.err.message : ''\n});",
+          "err": {},
+          "uuid": "c4509c57-01a5-471f-9d51-213a6605bcb0",
+          "parentUUID": "fc69d7ba-5ff1-4477-a3d4-2bf20a3a420f",
+          "isHook": true,
+          "skipped": false
+        }
+      ],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "a1388cb4-d1ef-4465-8cf5-1e50fcf289a3",
+          "title": "Dynamic Form Validations",
+          "fullFile": "D:\\PDD\\pdd_agrivison\\e2e-tests\\tests\\dynamic-forms.spec.js",
+          "file": "\\tests\\dynamic-forms.spec.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should dynamically discover and validate forms on /contact",
+              "fullTitle": "Dynamic Form Validations should dynamically discover and validate forms on /contact",
+              "timedOut": false,
+              "duration": 3577,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await driverWrapper.navigate(`${config.baseUrl}${route}`);\n// Wait for React to mount and render forms\nawait driverWrapper.driver.sleep(2000); \nawait dynamicFormValidator.validateFormsOnPage();",
+              "err": {
+                "message": "ElementClickInterceptedError: element click intercepted: Element is not clickable at point (1445, 1151)\n  (Session info: chrome=149.0.7827.103)",
+                "estack": "ElementClickInterceptedError: element click intercepted: Element is not clickable at point (1445, 1151)\n  (Session info: chrome=149.0.7827.103)\n    at Object.throwDecodedError (node_modules\\selenium-webdriver\\lib\\error.js:523:15)\n    at parseHttpResponse (node_modules\\selenium-webdriver\\lib\\http.js:526:13)\n    at Executor.execute (node_modules\\selenium-webdriver\\lib\\http.js:458:28)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async Driver.execute (node_modules\\selenium-webdriver\\lib\\webdriver.js:745:17)\n    at async DynamicFormValidator.validateForm (utilities\\DynamicFormValidator.js:42:5)\n    at async DynamicFormValidator.validateFormsOnPage (utilities\\DynamicFormValidator.js:25:7)\n    at async Context.<anonymous> (tests\\dynamic-forms.spec.js:19:7)",
+                "diff": null
+              },
+              "uuid": "8b3c4c89-ea2a-4fdc-bc3d-d68394b84cda",
+              "parentUUID": "a1388cb4-d1ef-4465-8cf5-1e50fcf289a3",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should dynamically discover and validate forms on /profile",
+              "fullTitle": "Dynamic Form Validations should dynamically discover and validate forms on /profile",
+              "timedOut": false,
+              "duration": 12416,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await driverWrapper.navigate(`${config.baseUrl}${route}`);\n// Wait for React to mount and render forms\nawait driverWrapper.driver.sleep(2000); \nawait dynamicFormValidator.validateFormsOnPage();",
+              "err": {},
+              "uuid": "36fb1b57-90c8-4d75-b811-8319e40a034c",
+              "parentUUID": "a1388cb4-d1ef-4465-8cf5-1e50fcf289a3",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should dynamically discover and validate forms on /settings",
+              "fullTitle": "Dynamic Form Validations should dynamically discover and validate forms on /settings",
+              "timedOut": false,
+              "duration": 13612,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await driverWrapper.navigate(`${config.baseUrl}${route}`);\n// Wait for React to mount and render forms\nawait driverWrapper.driver.sleep(2000); \nawait dynamicFormValidator.validateFormsOnPage();",
+              "err": {},
+              "uuid": "639edc42-b524-4779-8434-ac5f1366cb5e",
+              "parentUUID": "a1388cb4-d1ef-4465-8cf5-1e50fcf289a3",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "36fb1b57-90c8-4d75-b811-8319e40a034c",
+            "639edc42-b524-4779-8434-ac5f1366cb5e"
+          ],
+          "failures": [
+            "8b3c4c89-ea2a-4fdc-bc3d-d68394b84cda"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 29605,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        },
+        {
+          "uuid": "ae72637e-1dd4-4119-8ce9-8e151846e8db",
+          "title": "Navigation Tests",
+          "fullFile": "D:\\PDD\\pdd_agrivison\\e2e-tests\\tests\\navigation.spec.js",
+          "file": "\\tests\\navigation.spec.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should load the home page successfully",
+              "fullTitle": "Navigation Tests should load the home page successfully",
+              "timedOut": false,
+              "duration": 729,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await navigationPage.navigateTo('');\nconst title = await navigationPage.getTitle();\nexpect(title).to.not.be.empty;",
+              "err": {},
+              "uuid": "65b707a0-bd87-4aa9-9fdf-37aa6f63893f",
+              "parentUUID": "ae72637e-1dd4-4119-8ce9-8e151846e8db",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should navigate to dashboard and verify URL",
+              "fullTitle": "Navigation Tests should navigate to dashboard and verify URL",
+              "timedOut": false,
+              "duration": 2818,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await navigationPage.navigateTo('');\nconst navbar = await navigationPage.verifyNavbarPresent();\nexpect(navbar).to.exist;\n\nawait navigationPage.navigateToDashboard();\nconst url = await navigationPage.getCurrentUrl();\nexpect(url).to.include('/dashboard');",
+              "err": {
+                "message": "AssertionError: expected 'http://localhost:3000/' to include '/dashboard'",
+                "estack": "AssertionError: expected 'http://localhost:3000/' to include '/dashboard'\n    at Context.<anonymous> (tests\\navigation.spec.js:20:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "15ffe516-cd86-426e-bbff-12b5ca2a1b29",
+              "parentUUID": "ae72637e-1dd4-4119-8ce9-8e151846e8db",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should handle browser back and forward correctly",
+              "fullTitle": "Navigation Tests should handle browser back and forward correctly",
+              "timedOut": false,
+              "duration": 2995,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await navigationPage.navigateTo('');\nawait navigationPage.navigateToContact();\nlet url = await navigationPage.getCurrentUrl();\nexpect(url).to.include('/contact');\nawait navigationPage.goBack();\nurl = await navigationPage.getCurrentUrl();\nexpect(url).to.not.include('/contact');\nawait navigationPage.goForward();\nurl = await navigationPage.getCurrentUrl();\nexpect(url).to.include('/contact');",
+              "err": {
+                "message": "AssertionError: expected 'http://localhost:3000/' to include '/contact'",
+                "estack": "AssertionError: expected 'http://localhost:3000/' to include '/contact'\n    at Context.<anonymous> (tests\\navigation.spec.js:27:20)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "e48a2c6f-9926-4650-95c0-ee67f54c65eb",
+              "parentUUID": "ae72637e-1dd4-4119-8ce9-8e151846e8db",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "65b707a0-bd87-4aa9-9fdf-37aa6f63893f"
+          ],
+          "failures": [
+            "15ffe516-cd86-426e-bbff-12b5ca2a1b29",
+            "e48a2c6f-9926-4650-95c0-ee67f54c65eb"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 6542,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        },
+        {
+          "uuid": "551b5c04-cffe-4b0d-8a73-6cb49441920a",
+          "title": "UI Components Validation",
+          "fullFile": "D:\\PDD\\pdd_agrivison\\e2e-tests\\tests\\ui-components.spec.js",
+          "file": "\\tests\\ui-components.spec.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"UI Components Validation\"",
+              "fullTitle": "UI Components Validation \"before all\" hook in \"UI Components Validation\"",
+              "timedOut": false,
+              "duration": 933,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await driverWrapper.navigate(config.baseUrl);",
+              "err": {},
+              "uuid": "c32f343c-fcdd-44eb-8cfb-4799ce2c7d51",
+              "parentUUID": "551b5c04-cffe-4b0d-8a73-6cb49441920a",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should verify global header elements",
+              "fullTitle": "UI Components Validation should verify global header elements",
+              "timedOut": false,
+              "duration": 20313,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const header = await driverWrapper.findElements(By.css('header'));\nexpect(header.length).to.be.greaterThan(0);\n\n// Check for logo\nconst logo = await driverWrapper.findElements(By.xpath(\"//*[contains(text(), 'AgroVision')]\"));\nexpect(logo.length).to.be.greaterThan(0);",
+              "err": {
+                "message": "TimeoutError: Waiting for at least one element to be located By(css selector, header)\nWait timed out after 20313ms",
+                "estack": "TimeoutError: Waiting for at least one element to be located By(css selector, header)\nWait timed out after 20313ms\n    at D:\\PDD\\pdd_agrivison\\e2e-tests\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "16470316-dc42-473c-a62e-149453321959",
+              "parentUUID": "551b5c04-cffe-4b0d-8a73-6cb49441920a",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should verify global footer elements",
+              "fullTitle": "UI Components Validation should verify global footer elements",
+              "timedOut": false,
+              "duration": 36,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Scroll to bottom\nawait driverWrapper.executeScript(\"window.scrollTo(0, document.body.scrollHeight)\");\nconst footer = await driverWrapper.findElements(By.css('footer'));\nexpect(footer.length).to.be.greaterThan(0);",
+              "err": {},
+              "uuid": "12866329-e1b7-4b1c-b74c-0153facb66dc",
+              "parentUUID": "551b5c04-cffe-4b0d-8a73-6cb49441920a",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "12866329-e1b7-4b1c-b74c-0153facb66dc"
+          ],
+          "failures": [
+            "16470316-dc42-473c-a62e-149453321959"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 20349,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 60000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.8.2"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "E2E_Report",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "./reports",
+        "reportFilename": "E2E_Report",
+        "html": "true",
+        "json": "true",
+        "overwrite": "true"
+      },
+      "version": "6.3.2"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+name: Selenium E2E Automation
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install Frontend Dependencies
+      run: npm install
+
+    - name: Build and Start Frontend Server
+      run: |
+        npm run build
+        npm run start &
+      env:
+        PORT: 3000
+    
+    - name: Wait for Server
+      run: npx wait-on http://localhost:3000
+
+    - name: Install E2E Dependencies
+      working-directory: ./e2e-tests
+      run: npm install
+
+    - name: Setup Chrome
+      uses: browser-actions/setup-chrome@v1
+      with:
+        chrome-version: stable
+        
+    - name: Run E2E Tests
+      working-directory: ./e2e-tests
+      run: npm run test
+      env:
+        HEADLESS: true
+        BROWSER: chrome
+        BASE_URL: http://localhost:3000
+
+    - name: Upload Test Reports
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: e2e-test-reports
+        path: |
+          e2e-tests/excel/E2E_Report.xlsx
+          e2e-tests/reports/
+          e2e-tests/logs/
+        retention-days: 7

@@ -189,8 +189,18 @@ export default function DiseaseDetectionResultPage() {
 
   if (!fileData && !diseaseReportId) return null; // Avoid flashing empty state
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const getPreviewUrl = () => {
+    if (fileData?.previewUrl) return fileData.previewUrl;
+    if (reportData?.file_path) {
+      const cleanPath = reportData.file_path.replace(/\\/g, '/');
+      return `${API_URL}/${cleanPath}`;
+    }
+    return null;
+  };
+
   const fileName = reportData ? reportData.original_filename : (fileData?.name || 'Unknown File');
-  const preview = fileData?.previewUrl || (reportData ? reportData.file_path : null);
+  const preview = getPreviewUrl();
   const confidence = reportData ? Math.round(reportData.confidence * 100) : 94;
   const severityBadgeClass = reportData ? (reportData.severity === 'High' ? 'badge-danger' : (reportData.severity === 'Moderate' ? 'badge-warning' : 'badge-info')) : 'badge-danger';
   const diseaseName = reportData ? reportData.disease_name : diseaseLibrary[0].name;

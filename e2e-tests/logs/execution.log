@@ -1,0 +1,70 @@
+{"level":"info","message":"Navigating to http://localhost:3000/contact","service":"e2e-automation-framework","timestamp":"2026-06-13 09:41:49"}
+{"level":"info","message":"Navigating to http://localhost:3000/profile","service":"e2e-automation-framework","timestamp":"2026-06-13 09:41:49"}
+{"level":"info","message":"Navigating to http://localhost:3000/settings","service":"e2e-automation-framework","timestamp":"2026-06-13 09:41:49"}
+{"level":"info","message":"Navigating to page: http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:41:49"}
+{"level":"info","message":"Navigating to http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:41:49"}
+{"level":"info","message":"Navigating to page: http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:41:49"}
+{"level":"info","message":"Navigating to http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:41:49"}
+{"level":"info","message":"Navigating to page: http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:41:49"}
+{"level":"info","message":"Navigating to http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:41:49"}
+{"level":"info","message":"Navigating to http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:41:49"}
+{"level":"info","message":"====================================================","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:11"}
+{"level":"info","message":"Starting E2E Test Execution","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:11"}
+{"level":"info","message":"Target Environment: http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:11"}
+{"level":"info","message":"Browser: chrome (Headless: true)","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:11"}
+{"level":"info","message":"====================================================","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:11"}
+{"level":"info","message":"Navigating to http://localhost:3000/contact","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:27"}
+{"level":"error","message":"[FAIL] should dynamically discover and validate forms on /contact - Timeout of 2000ms exceeded. For async tests and hooks, ensure \"done()\" is called; if returning a Promise, ensure it resolves. (D:\\PDD\\pdd_agrivison\\e2e-tests\\tests\\dynamic-forms.spec.js)","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:29"}
+{"level":"info","message":"Screenshot saved to D:\\PDD\\pdd_agrivison\\e2e-tests\\reports\\failures\\should_dynamically_discover_and_validate_forms_on__contact_1781324010077.png","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:30"}
+{"level":"info","message":"Navigating to http://localhost:3000/profile","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:30"}
+{"level":"info","message":"Starting dynamic form discovery and validation","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:31"}
+{"level":"error","message":"[FAIL] should dynamically discover and validate forms on /profile - Timeout of 2000ms exceeded. For async tests and hooks, ensure \"done()\" is called; if returning a Promise, ensure it resolves. (D:\\PDD\\pdd_agrivison\\e2e-tests\\tests\\dynamic-forms.spec.js)","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:32"}
+{"level":"info","message":"Starting dynamic form discovery and validation","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:33"}
+{"level":"error","message":"Elements not found: By(css selector, form) - Waiting for at least one element to be located By(css selector, form)\nWait timed out after 10623ms","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:41"}
+{"level":"info","message":"No forms found on the current page.","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:41"}
+{"level":"info","message":"Screenshot saved to D:\\PDD\\pdd_agrivison\\e2e-tests\\reports\\failures\\should_dynamically_discover_and_validate_forms_on__profile_1781324022220.png","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:42"}
+{"level":"error","message":"Elements not found: By(css selector, form) - Waiting for at least one element to be located By(css selector, form)\nWait timed out after 18322ms","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:52"}
+{"level":"info","message":"No forms found on the current page.","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:52"}
+{"level":"info","message":"Execution finished. Excel Report saved to D:\\PDD\\pdd_agrivison\\e2e-tests\\excel\\E2E_Report.xlsx","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:52"}
+{"level":"info","message":"====================================================","service":"e2e-automation-framework","timestamp":"2026-06-13 09:43:52"}
+{"level":"info","message":"====================================================","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:24"}
+{"level":"info","message":"Starting E2E Test Execution","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:24"}
+{"level":"info","message":"Target Environment: http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:24"}
+{"level":"info","message":"Browser: chrome (Headless: true)","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:24"}
+{"level":"info","message":"====================================================","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:24"}
+{"level":"info","message":"Navigating to http://localhost:3000/contact","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:25"}
+{"level":"info","message":"Starting dynamic form discovery and validation","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:28"}
+{"level":"info","message":"Found 1 form(s) on the page.","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:28"}
+{"level":"info","message":"Validating Form #1","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:28"}
+{"level":"error","message":"[FAIL] should dynamically discover and validate forms on /contact - element click intercepted: Element is not clickable at point (1445, 1151)\n  (Session info: chrome=149.0.7827.103)","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:29"}
+{"level":"info","message":"Screenshot saved to D:\\PDD\\pdd_agrivison\\e2e-tests\\reports\\failures\\should_dynamically_discover_and_validate_forms_on__contact_1781324069952.png","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:29"}
+{"level":"info","message":"Navigating to http://localhost:3000/profile","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:29"}
+{"level":"info","message":"Starting dynamic form discovery and validation","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:32"}
+{"level":"error","message":"Elements not found: By(css selector, form) - Waiting for at least one element to be located By(css selector, form)\nWait timed out after 10036ms","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:42"}
+{"level":"info","message":"No forms found on the current page.","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:42"}
+{"level":"info","message":"[PASS] should dynamically discover and validate forms on /profile","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:42"}
+{"level":"info","message":"Navigating to http://localhost:3000/settings","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:42"}
+{"level":"info","message":"Starting dynamic form discovery and validation","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:45"}
+{"level":"error","message":"Elements not found: By(css selector, form) - Waiting for at least one element to be located By(css selector, form)\nWait timed out after 10018ms","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:55"}
+{"level":"info","message":"No forms found on the current page.","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:55"}
+{"level":"info","message":"[PASS] should dynamically discover and validate forms on /settings","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:56"}
+{"level":"info","message":"Navigating to page: http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:56"}
+{"level":"info","message":"Navigating to http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:56"}
+{"level":"info","message":"[PASS] should load the home page successfully","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:56"}
+{"level":"info","message":"Navigating to page: http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:56"}
+{"level":"info","message":"Navigating to http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:56"}
+{"level":"info","message":"Clicking element: By(xpath, //a[contains(text(), 'Dashboard') or contains(@href, '/dashboard')])","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:58"}
+{"level":"error","message":"[FAIL] should navigate to dashboard and verify URL - expected 'http://localhost:3000/' to include '/dashboard'","service":"e2e-automation-framework","timestamp":"2026-06-13 09:44:59"}
+{"level":"info","message":"Screenshot saved to D:\\PDD\\pdd_agrivison\\e2e-tests\\reports\\failures\\should_navigate_to_dashboard_and_verify_url_1781324100433.png","service":"e2e-automation-framework","timestamp":"2026-06-13 09:45:00"}
+{"level":"info","message":"Navigating to page: http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:45:00"}
+{"level":"info","message":"Navigating to http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:45:00"}
+{"level":"info","message":"Clicking element: By(xpath, //a[contains(text(), 'Contact') or contains(@href, '/contact')])","service":"e2e-automation-framework","timestamp":"2026-06-13 09:45:01"}
+{"level":"error","message":"[FAIL] should handle browser back and forward correctly - expected 'http://localhost:3000/' to include '/contact'","service":"e2e-automation-framework","timestamp":"2026-06-13 09:45:03"}
+{"level":"info","message":"Screenshot saved to D:\\PDD\\pdd_agrivison\\e2e-tests\\reports\\failures\\should_handle_browser_back_and_forward_correctly_1781324103942.png","service":"e2e-automation-framework","timestamp":"2026-06-13 09:45:03"}
+{"level":"info","message":"Navigating to http://localhost:3000","service":"e2e-automation-framework","timestamp":"2026-06-13 09:45:03"}
+{"level":"error","message":"Elements not found: By(css selector, header) - Waiting for at least one element to be located By(css selector, header)\nWait timed out after 20313ms","service":"e2e-automation-framework","timestamp":"2026-06-13 09:45:25"}
+{"level":"error","message":"[FAIL] should verify global header elements - Waiting for at least one element to be located By(css selector, header)\nWait timed out after 20313ms","service":"e2e-automation-framework","timestamp":"2026-06-13 09:45:25"}
+{"level":"info","message":"Screenshot saved to D:\\PDD\\pdd_agrivison\\e2e-tests\\reports\\failures\\should_verify_global_header_elements_1781324125910.png","service":"e2e-automation-framework","timestamp":"2026-06-13 09:45:25"}
+{"level":"info","message":"[PASS] should verify global footer elements","service":"e2e-automation-framework","timestamp":"2026-06-13 09:45:25"}
+{"level":"info","message":"Execution finished. Excel Report saved to D:\\PDD\\pdd_agrivison\\e2e-tests\\excel\\E2E_Report.xlsx","service":"e2e-automation-framework","timestamp":"2026-06-13 09:45:26"}
+{"level":"info","message":"====================================================","service":"e2e-automation-framework","timestamp":"2026-06-13 09:45:26"}
