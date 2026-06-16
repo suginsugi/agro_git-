@@ -10,10 +10,11 @@ describe('UI Components Validation', function () {
   });
 
   it('should verify global header elements', async function () {
-    const header = await driverWrapper.findElements(By.css('header'));
-    expect(header.length).to.be.greaterThan(0);
+    // The app uses <nav> for the navbar, not <header>
+    const navbar = await driverWrapper.findElements(By.css('nav'));
+    expect(navbar.length).to.be.greaterThan(0);
     
-    // Check for logo
+    // Check for logo / brand name
     const logo = await driverWrapper.findElements(By.xpath("//*[contains(text(), 'AgroVision')]"));
     expect(logo.length).to.be.greaterThan(0);
   });
