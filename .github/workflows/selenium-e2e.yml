@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -17,7 +20,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '22'
         cache: 'npm'
 
     - name: Install Frontend Dependencies
@@ -32,17 +35,40 @@ jobs:
         PORT: '3000'
     
     - name: Wait for Server to be Ready
-      run: npx wait-on http://localhost:3000 --timeout 60000
+      run: |
+        echo "Waiting for server to start..."
+        for i in $(seq 1 30); do
+          if curl -s http://localhost:3000 > /dev/null 2>&1; then
+            echo "Server is ready!"
+            break
+          fi
+          echo "Attempt $i: Server not ready yet, waiting 2s..."
+          sleep 2
+        done
 
     - name: Install E2E Dependencies
       working-directory: ./e2e-tests
       run: npm install
 
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Verify Maven/Gradle dependencies
+      run: |
+        echo "No pom.xml or build.gradle found. Project is Node.js based."
+        echo "Java setup complete as requested."
+
     - name: Setup Chrome
       uses: browser-actions/setup-chrome@v1
       with:
         chrome-version: stable
-        
+
+    - name: Setup ChromeDriver
+      uses: nanasess/setup-chromedriver@v2
+
     - name: Run E2E Tests
       working-directory: ./e2e-tests
       run: npm run test

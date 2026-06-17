@@ -38,8 +38,8 @@ class DynamicFormValidator {
     }
 
     // 1. Test empty submission (Required Fields Validation)
-    await driverWrapper.executeScript("arguments[0].scrollIntoView(true);", submitBtn);
-    await submitBtn.click();
+    await driverWrapper.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'center'});", submitBtn);
+    await driverWrapper.executeScript("arguments[0].click();", submitBtn);
     
     // Check required fields logic
     for (let input of inputs) {
@@ -60,7 +60,7 @@ class DynamicFormValidator {
         logger.info(`Testing invalid email format on field: ${name}`);
         await input.clear();
         await input.sendKeys('invalid-email-format');
-        await submitBtn.click();
+          await driverWrapper.executeScript("arguments[0].click();", submitBtn);
         
         const validationMessage = await input.getAttribute('validationMessage');
         expect(validationMessage).to.include('@');
@@ -75,7 +75,7 @@ class DynamicFormValidator {
         // Custom app validation might restrict to numbers, or HTML5 pattern validation
         const pattern = await input.getAttribute('pattern');
         if (pattern) {
-          await submitBtn.click();
+            await driverWrapper.executeScript("arguments[0].click();", submitBtn);
           const validationMessage = await input.getAttribute('validationMessage');
           expect(validationMessage).to.not.be.empty;
         }

@@ -15,7 +15,7 @@ describe('Dynamic Form Validations', function () {
     it(`should dynamically discover and validate forms on ${route}`, async function () {
       await driverWrapper.navigate(`${config.baseUrl}${route}`);
       // Wait for React to mount and render forms
-      await driverWrapper.driver.sleep(2000); 
+      await driverWrapper.findElement(require('selenium-webdriver').By.css('body'));
       await dynamicFormValidator.validateFormsOnPage();
     });
   });

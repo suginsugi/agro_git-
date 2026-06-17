@@ -18,7 +18,7 @@ class DriverWrapper {
     if (config.headless) {
       if (config.browser === 'chrome') {
         const options = new chrome.Options();
-        options.addArguments('--headless', '--disable-gpu', '--window-size=1920,1080', '--no-sandbox', '--disable-dev-shm-usage');
+        options.addArguments('--headless=new', '--disable-gpu', '--window-size=1920,1080', '--no-sandbox', '--disable-dev-shm-usage');
         builder = builder.setChromeOptions(options);
       } else if (config.browser === 'firefox') {
         const options = new firefox.Options();
