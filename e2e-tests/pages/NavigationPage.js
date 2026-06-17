@@ -10,11 +10,18 @@ class NavigationPage extends BasePage {
   get profileLink() { return By.xpath("//a[contains(text(), 'Profile') or contains(@href, '/profile')]"); }
 
   async navigateToDashboard() {
-    await this.driverWrapper.click(this.dashboardLink);
+    const driver = await this.driverWrapper.getDriver();
+    // Wait briefly for hydration
+    await driver.sleep(1000);
+    const element = await this.driverWrapper.findElement(this.dashboardLink);
+    await this.driverWrapper.executeScript("arguments[0].click();", element);
   }
 
   async navigateToContact() {
-    await this.driverWrapper.click(this.contactLink);
+    const driver = await this.driverWrapper.getDriver();
+    await driver.sleep(1000);
+    const element = await this.driverWrapper.findElement(this.contactLink);
+    await this.driverWrapper.executeScript("arguments[0].click();", element);
   }
 
   async verifyNavbarPresent() {
