@@ -30,12 +30,12 @@ class NavigationPage extends BasePage {
 
   async goBack() {
     const driver = await this.driverWrapper.getDriver();
-    await driver.navigate().back();
+    await driver.executeScript('window.history.back();');
   }
 
   async goForward() {
     const driver = await this.driverWrapper.getDriver();
-    await driver.navigate().forward();
+    await driver.executeScript('window.history.forward();');
   }
 
   async refresh() {
