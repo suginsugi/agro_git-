@@ -1,4 +1,4 @@
-name: LocalSeva CI/CD
+name: Agri CI/CD
 
 on:
   push:
@@ -9,4 +9,4 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "Running LocalSeva CI/CD..."
+    - run: echo "Running Agri CI/CD..."

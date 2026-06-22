@@ -1,4 +1,4 @@
-name: LocalSeva Unified Testing Framework
+name: Agri Unified Testing Framework
 
 on:
   push:
@@ -9,4 +9,4 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "Running LocalSeva Unified Testing Framework..."
+    - run: echo "Running Agri Unified Testing Framework..."

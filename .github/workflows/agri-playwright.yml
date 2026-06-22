@@ -1,4 +1,4 @@
-name: LocalSeva Playwright E2E Tests
+name: Agri Playwright E2E Tests
 
 on:
   push:
@@ -9,4 +9,4 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "Running LocalSeva Playwright E2E Tests..."
+    - run: echo "Running Agri Playwright E2E Tests..."
