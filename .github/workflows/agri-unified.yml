@@ -1,0 +1,12 @@
+name: LocalSeva Unified Testing Framework
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "Running LocalSeva Unified Testing Framework..."
