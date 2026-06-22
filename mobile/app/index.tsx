@@ -16,6 +16,7 @@ import { MapPin, ArrowRight, CloudSun } from 'lucide-react-native';
 import Svg, { Path } from 'react-native-svg';
 import { Colors } from '../src/constants/theme';
 import * as Haptics from 'expo-haptics';
+import { useAppStore } from '../src/store/useAppStore';
 
 const { width } = Dimensions.get('window');
 
@@ -25,6 +26,7 @@ const AnimatedPath = Animated.createAnimatedComponent(Path);
 export default function LandingScreen() {
   const arrowOffset = useSharedValue(0);
   const pulseScale = useSharedValue(1);
+  const userToken = useAppStore((state) => state.userToken);
 
   useEffect(() => {
     // Pulse animation for the live timestamp
@@ -49,7 +51,11 @@ export default function LandingScreen() {
 
   const handleDashboardNav = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    router.replace('/(tabs)/dashboard');
+    if (userToken) {
+      router.replace('/(tabs)/dashboard');
+    } else {
+      router.push('/login');
+    }
   };
 
   const arrowStyle = useAnimatedStyle(() => ({

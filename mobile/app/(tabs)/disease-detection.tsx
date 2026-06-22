@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   overlay: {
-    ...StyleSheet.absoluteFill,
+    ...(StyleSheet.absoluteFillObject),
     backgroundColor: 'rgba(16, 185, 129, 0.1)',
   },
   laserLine: {

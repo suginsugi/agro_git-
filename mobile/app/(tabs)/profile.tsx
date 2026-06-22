@@ -12,6 +12,7 @@ import Animated, {
 import { Colors } from '../../src/constants/theme';
 import { router } from 'expo-router';
 import * as Haptics from 'expo-haptics';
+import { useAppStore } from '../../src/store/useAppStore';
 
 const CHIP_DATA = [
   { id: '1', label: 'Tomato' },
@@ -63,6 +64,7 @@ const AnimatedChip = ({ label, selected, onPress }: any) => {
 export default function ProfileScreen() {
   const [preferences, setPreferences] = useState<string[]>(['Tomato', 'Onion', 'Paddy']);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const setUserToken = useAppStore((state) => state.setUserToken);
 
   const togglePreference = (label: string) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -77,6 +79,7 @@ export default function ProfileScreen() {
     Alert.alert('Log Out', 'Are you sure you want to log out?', [
       { text: 'Cancel', style: 'cancel' },
       { text: 'Log Out', style: 'destructive', onPress: () => {
+        setUserToken(null);
         router.replace('/');
       }},
     ]);

@@ -2,53 +2,45 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, Alert, ActivityIndicator } from 'react-native';
 import { router } from 'expo-router';
 import { useAppStore } from '../src/store/useAppStore';
+import { Colors } from '../src/constants/theme';
+import { MapPin } from 'lucide-react-native';
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:8000';
 
-export default function RegisterScreen() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+export default function LoginScreen() {
+  const [emailOrPhone, setEmailOrPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [phone, setPhone] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const setUserToken = useAppStore((state) => state.setUserToken);
 
-  const handleRegister = async () => {
-    if (!name || (!email && !phone) || !password) {
-      Alert.alert('Error', 'Please fill name, password, and either email or phone.');
-      return;
-    }
-
-    if (password.length < 8) {
-      Alert.alert('Error', 'Password must be at least 8 characters.');
+  const handleLogin = async () => {
+    if (!emailOrPhone || !password) {
+      Alert.alert('Error', 'Please fill all fields');
       return;
     }
 
     setIsSubmitting(true);
     try {
+      // Use 10.0.2.2 for Android emulator localhost, or actual IP if on physical device
       const apiUrl = API_URL.replace('localhost', '10.0.2.2');
-      const response = await fetch(`${apiUrl}/auth/register`, {
+      const response = await fetch(`${apiUrl}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
-          full_name: name, 
-          email: email || null, 
-          phone_number: phone || null, 
-          password 
-        }),
+        body: JSON.stringify({ email_or_phone: emailOrPhone, password }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.detail || 'Registration failed');
+        throw new Error(data.detail || 'Login failed');
       }
 
-      Alert.alert('Success', 'Account created! Please log in.');
-      router.replace('/login');
+      setUserToken(data.access_token);
+      router.replace('/(tabs)/dashboard');
     } catch (error: any) {
-      Alert.alert('Registration Failed', error.message);
+      Alert.alert('Login Failed', error.message || 'Check your credentials and try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -65,60 +57,41 @@ export default function RegisterScreen() {
 
       <View style={styles.logoContainer}>
         <Text style={{fontSize: 48}}>🌱</Text>
-        <Text style={styles.title}>Create Account</Text>
-        <Text style={styles.subtitle}>Join AgroVision today</Text>
+        <Text style={styles.title}>Welcome Back</Text>
+        <Text style={styles.subtitle}>Sign in to AgroVision</Text>
       </View>
 
       <View style={styles.formContainer}>
-        <Text style={styles.label}>Full Name</Text>
+        <Text style={styles.label}>Email or Phone Number</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter your name"
-          value={name}
-          onChangeText={setName}
-        />
-
-        <Text style={styles.label}>Email</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter your email"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
+          placeholder="Enter email or phone"
+          value={emailOrPhone}
+          onChangeText={setEmailOrPhone}
           autoCapitalize="none"
-          placeholderTextColor="#9CA3AF"
-        />
-
-        <Text style={styles.label}>Phone Number</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter phone number"
-          value={phone}
-          onChangeText={setPhone}
-          keyboardType="phone-pad"
           placeholderTextColor="#9CA3AF"
         />
 
         <Text style={styles.label}>Password</Text>
         <TextInput
           style={styles.input}
-          placeholder="Create a password"
+          placeholder="••••••••"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
           placeholderTextColor="#9CA3AF"
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleRegister} disabled={isSubmitting}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={isSubmitting}>
           {isSubmitting ? (
             <ActivityIndicator color="#FFFFFF" />
           ) : (
-            <Text style={styles.buttonText}>Sign Up</Text>
+            <Text style={styles.buttonText}>Log In</Text>
           )}
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ marginTop: 16, alignItems: 'center' }} onPress={() => router.push('/login')}>
-          <Text style={{ color: '#10B981', fontSize: 14, fontWeight: '500' }}>Already have an account? Log In</Text>
+        <TouchableOpacity style={styles.linkButton} onPress={() => router.push('/register')}>
+          <Text style={styles.linkText}>Don't have an account? Register</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -136,6 +109,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 60,
     left: 24,
+    zIndex: 10,
   },
   backText: {
     color: '#6B7280',
@@ -144,7 +118,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'center',
     marginBottom: 40,
-    marginTop: 40,
+    marginTop: 20,
   },
   title: {
     fontSize: 28,
@@ -192,5 +166,14 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '600',
+  },
+  linkButton: {
+    marginTop: 16,
+    alignItems: 'center',
+  },
+  linkText: {
+    color: '#10B981',
+    fontSize: 14,
+    fontWeight: '500',
   },
 });
