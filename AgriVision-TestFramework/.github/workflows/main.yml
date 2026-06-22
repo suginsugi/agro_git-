@@ -1,0 +1,51 @@
+name: AgriVision QA Enterprise Automation
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Install Google Chrome (for Selenium)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
+    - name: Execute Enterprise QA Test Suite
+      working-directory: ./AgriVision-TestFramework
+      run: mvn clean test
+      continue-on-error: true
+
+    - name: Upload Extent HTML Reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: ExtentReports
+        path: AgriVision-TestFramework/reports/ExtentReport.html
+
+    - name: Upload Excel Reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: ExcelReports
+        path: AgriVision-TestFramework/excel/Master_Report.xlsx
+
+    - name: Upload Error Screenshots
+      uses: actions/upload-artifact@v4
+      with:
+        name: Screenshots
+        path: AgriVision-TestFramework/reports/screenshots/

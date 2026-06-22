@@ -1,0 +1,30 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="AgriVision-Enterprise-QA-Suite">
+    <listeners>
+        <listener class-name="listeners.TestListener" />
+    </listeners>
+
+    <test name="Selenium Web Tests">
+        <classes>
+            <class name="selenium.SeleniumSimulationTest" />
+        </classes>
+    </test>
+
+    <test name="Security OWASP Tests">
+        <classes>
+            <class name="security.SecuritySimulationTest" />
+        </classes>
+    </test>
+
+    <test name="Appium Mobile Tests">
+        <classes>
+            <class name="appium.AppiumSimulationTest" />
+        </classes>
+    </test>
+
+    <test name="JMeter Load Simulations">
+        <classes>
+            <class name="load.LoadSimulationTest" />
+        </classes>
+    </test>
+</suite>
