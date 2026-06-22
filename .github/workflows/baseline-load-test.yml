@@ -6,7 +6,56 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  load-test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: agrovision
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
-    - run: echo "Running Baseline Load Test..."
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install Backend Dependencies
+      working-directory: backend
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libpq-dev
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Start FastAPI Backend
+      working-directory: backend
+      env:
+        DATABASE_URL: postgresql://postgres:postgres@localhost:5432/agrovision
+      run: |
+        python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+        echo "Waiting for API to start..."
+        sleep 5
+        curl --retry 5 --retry-delay 2 -s http://localhost:8000/ | grep Welcome
+
+    - name: Setup k6
+      uses: grafana/setup-k6-action@v1
+      with:
+        k6-version: '0.47.0'
+
+    - name: Run k6 Load Test
+      run: k6 run load-tests/baseline.js
+      env:
+        API_URL: http://localhost:8000
