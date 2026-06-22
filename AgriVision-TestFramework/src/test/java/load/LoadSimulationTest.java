@@ -8,8 +8,8 @@ public class LoadSimulationTest {
 
     @DataProvider(name = "loadData")
     public Object[][] getTestData() {
-        Object[][] data = new Object[300][1];
-        for (int i = 0; i < 300; i++) {
+        Object[][] data = new Object[336][1];
+        for (int i = 0; i < 336; i++) {
             data[i][0] = "AGV-LOAD-" + String.format("%03d", i + 1);
         }
         return data;

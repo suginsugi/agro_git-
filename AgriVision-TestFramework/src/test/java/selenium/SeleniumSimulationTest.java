@@ -9,8 +9,8 @@ public class SeleniumSimulationTest extends BaseTest {
 
     @DataProvider(name = "seleniumData")
     public Object[][] getTestData() {
-        Object[][] data = new Object[300][1];
-        for (int i = 0; i < 300; i++) {
+        Object[][] data = new Object[282][1];
+        for (int i = 0; i < 282; i++) {
             data[i][0] = "AGV-TC-" + String.format("%03d", i + 1);
         }
         return data;

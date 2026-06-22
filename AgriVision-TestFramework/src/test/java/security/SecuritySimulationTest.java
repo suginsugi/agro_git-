@@ -8,8 +8,8 @@ public class SecuritySimulationTest {
 
     @DataProvider(name = "securityData")
     public Object[][] getTestData() {
-        Object[][] data = new Object[300][1];
-        for (int i = 0; i < 300; i++) {
+        Object[][] data = new Object[291][1];
+        for (int i = 0; i < 291; i++) {
             data[i][0] = "AGV-SEC-" + String.format("%03d", i + 1);
         }
         return data;

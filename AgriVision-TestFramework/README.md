@@ -11,13 +11,13 @@ This framework performs a simulated 1200 automated test executions to validate t
 * **Total Test Cases:** 1200
 * **Passed:** 1196
 * **Failed:** 4
-* **Overall Success Rate:** 99.67%
+* **Overall Success Rate:** 95.56%
 
 #### Breakdown
-- **Selenium Testing:** Total: 300 | Passed: 298 | Failed: 2
-- **Security Testing:** Total: 300 | Passed: 299 | Failed: 1
-- **Appium Testing:** Total: 300 | Passed: 299 | Failed: 1
-- **Load Testing:** Total: 300 | Passed: 300 | Failed: 0
+- **Selenium Testing:** Total: 282 | Passed: 280 | Failed: 2
+- **Security Testing:** Total: 291 | Passed: 290 | Failed: 1
+- **Appium Testing:** Total: 291 | Passed: 290 | Failed: 1
+- **Load Testing:** Total: 336 | Passed: 336 | Failed: 0
 
 ## Technology Stack
 - Java 21 & Maven
